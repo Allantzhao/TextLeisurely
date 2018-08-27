@@ -9,6 +9,7 @@ class Form extends React.Component {
       phoneNumber: '',
       message: '',
       sendAt: '',
+      sendDaily: true,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,18 +18,17 @@ class Form extends React.Component {
 
   handleChange(event) {
     if (event.value) {
-      this.setState({
-        phoneNumber: event.value
-      });
-    } else {
+        this.setState({
+          phoneNumber: event.value
+        });
+      } else {
       const target = event.target;
-      const value = target.value;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-
+      
       this.setState({
         [name]: value
       });
-      
     }
   }
 
@@ -81,6 +81,14 @@ class Form extends React.Component {
             onChange={this.handleChange} />
         </label>
         <br />
+        <label>
+          Send daily?
+          <input
+            name="sendDaily"
+            type="checkbox"
+            checked={this.state.sendDaily}
+            onChange={this.handleChange} />
+        </label>
         <input type="submit" value="Submit" />
       </form>
     );
