@@ -10,17 +10,20 @@ var items = require('../database');
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-var sendText = new Cron('05 14 * * *', function() {
-  client.messages.create({
-    to: process.env.CELL_PHONE_NUMBER,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    body: 'Hi don\'t forget to get me coconut water if there is any. Also don\'t forget to get me at least 100 cliff bars, thanks! Love you <3. Btw I\'m sending this from my new app. Please don\'t reply to this text or it might break my app lol.' ,
-  }).then((message) => {
-    console.log(message.sid);
-  });
-}, null, true);
+app.post('/texts', (req, res) => {
+  var sendText = new Cron(`${req.body.sendAt.slice(3)} ${req.body.sendAt.slice(0,2)} * * *`, function() {
+    client.messages.create({
+      to: `+1${req.body.phoneNumber}`,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      body: req.body.message,
+    }).then((message) => {
+      console.log(message.sid);
+    });
+  }, null, true);
+});
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');

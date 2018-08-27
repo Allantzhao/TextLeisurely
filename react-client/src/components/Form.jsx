@@ -1,5 +1,6 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
+import $ from 'jquery';
 
 class Form extends React.Component {
   constructor(props) {
@@ -32,8 +33,20 @@ class Form extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(`Your message will be sent to ${this.state.phoneNumber} at ${this.state.sendAt}`);
     event.preventDefault();
+
+    alert(`Your message will be sent to ${this.state.phoneNumber} at ${this.state.sendAt}`);
+
+    $.ajax({
+      method: "POST",
+      url: '/texts',
+      data: {
+        phoneNumber: this.state.phoneNumber,
+        message: this.state.message,
+        sendAt: this.state.sendAt,
+      },
+      dataType: 'json',
+    });
   }
 
   render () {
