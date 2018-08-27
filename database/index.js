@@ -1,14 +1,14 @@
 const pg = require('pg');
 
 const connection = new pg.Pool({
-  database: 'test',
+  database: 'textdb',
 });
 
 connection.connect();
 
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items;', function(err, results, fields) {
+var saveText = function(phoneNumber, message, sendAt, callback) {
+  connection.query('INSERT INTO texts(phoneNumber, message, sendAt)' + `VALUES('${phoneNumber}', '${message}', '${sendAt}')`, (err, results) => {
     if(err) {
       console.log(err);
       callback(err, null);
@@ -19,5 +19,5 @@ var selectAll = function(callback) {
 };
 
 module.exports = {
-  selectAll,
+  saveText,
 }

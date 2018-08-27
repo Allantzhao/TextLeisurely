@@ -1,12 +1,13 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS textdb;
 
-CREATE DATABASE test;
+CREATE DATABASE textdb;
 
-\connect test;
+\connect textdb;
 
-CREATE TABLE IF NOT EXISTS items (
+CREATE TABLE IF NOT EXISTS texts (
   id serial,
-  quantity int NOT NULL,
-  description varchar(50) NOT NULL,
+  phoneNumber text NOT NULL,
+  message text NOT NULL,
+  sendAt time NOT NULL,
   PRIMARY KEY (ID)
 );
