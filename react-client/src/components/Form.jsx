@@ -25,7 +25,7 @@ class Form extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-      
+
       this.setState({
         [name]: value
       });
@@ -44,6 +44,7 @@ class Form extends React.Component {
         phoneNumber: this.state.phoneNumber,
         message: this.state.message,
         sendAt: this.state.sendAt,
+        sendDaily: this.state.sendDaily,
       },
       dataType: 'json',
     });
@@ -89,6 +90,7 @@ class Form extends React.Component {
             checked={this.state.sendDaily}
             onChange={this.handleChange} />
         </label>
+        <br />
         <input type="submit" value="Submit" />
       </form>
     );
