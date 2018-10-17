@@ -8,7 +8,7 @@ connection.connect();
 
 
 var saveText = function(phoneNumber, message, sendAt, callback) {
-  connection.query('INSERT INTO texts(phoneNumber, message, sendAt)' + `VALUES('${phoneNumber}', '${message}', '${sendAt}')`, (err, results) => {
+  connection.query(`INSERT INTO texts(phoneNumber, message, sendAt) VALUES('${phoneNumber}', '${message}', '${sendAt}')`, (err, results) => {
     if(err) {
       console.log(err);
       callback(err, null);
